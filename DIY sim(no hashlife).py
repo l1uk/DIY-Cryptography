@@ -7,10 +7,11 @@ from PIL import Image
 
 
 dim=500
-shift = np.zeros([8,2],dtype='i')
+
 i = 0
 lifeCondition = np.array([3],dtype='i')
 
+shift = np.zeros([8,2],dtype='i')
 for a in np.arange(-1,2):
     for b in np.arange(-1,2):
         if a != 0 or b!= 0:
