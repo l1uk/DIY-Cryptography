@@ -1,8 +1,0 @@
-#CXRLE Pos=0,0 Gen=885
-x = 250, y = 106, rule = B3/S23
-25bo$25bobo$8b2o18b2o4b2o$6bo3bo17b2o4b2o$2o3bo5bo16b2o$2o2b2obo3bo8bo
-4bobo220bo$5bo5bo9bo3bo221bo$6bo3bo5bo2b3o225b3o$8b2o5$28bo211bo$26bob
-o211bobo$27b2o211b2o5$35bo$36bo$34b3o6$225bo$225bobo$225b2o5$50bo167bo
-$51bo165bo$49b3o165b3o6$58bo151bo$56bobo151bobo$57b2o151b2o28$88bo$86b
-obo$87b2o5$173bo$172bo$172b3o6$103bo$101bobo$102b2o5$110bo47bo$111bo
-45bo$109b3o45b3o6$118bo31bo$116bobo31bobo$117b2o31b2o!
