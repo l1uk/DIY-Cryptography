@@ -1,0 +1,10 @@
+Per evitare di doversi installare tutte le librerie a mano, ho creato un VENV. Basta avere python installato.
+
+Per attivarlo:
+    source env/bin/activate
+
+Dopodiche basta far girare lo script normalmente:
+    python3 main.py
+
+Per uscire:
+    deactivate

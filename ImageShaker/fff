@@ -1,0 +1,8 @@
+-Crittografia immagini (4h)
+    -BW di interi positivi 0-255 K
+    -generare un vettore = spigolo di un quadrato di golly K
+    -dopo 10 iterazioni ottieni una nuova configurazione K
+    -generi una matrice casuale e la somma per la diffusione
+
+-Metriche (2h)
+-Vari tipi di automi cellulari (2h)
