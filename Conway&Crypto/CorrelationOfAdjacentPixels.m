@@ -1,19 +1,28 @@
+function Correlation = CorrelationOfAdjacentPixels(Image)
 
-function c = CorrelationOfAdjacentPixels(I)
-%Sceglie n coppie casuali di pixel adiacenti e ne calcola la correlazione
+%Chooses 6000 random pairs of adjacent pixels and computes correlation of
+%the pair
 
-n = 6000;
-x1 = randi(size(I,1)-1,1,n);
-y1 = randi(size(I,2)-1,1,n);
-x2 = mod(x1+1,size(I,1)-1)+1;
-y2 = mod(y1+1,size(I,2)-1)+1;
+Width = size(Image,1);
+Height = size(Image,2);
+PixelCouplesSample = 6000;
 
-P1 = zeros(1,n);
-P2 = zeros(1,n);
-for i = 1:n
-    P1(i) = I(x1(i),y1(i));
-    P2(i) = I(x2(i),y2(i));
+%Generates first point coordinates
+x1 = randi(Width,1,PixelCouplesSample);
+y1 = randi(Height,1,PixelCouplesSample);
+%Generates second point coordinates keeping track of periodic boundary
+%conditions
+x2 = mod(x1+1,Width+1)+(x1==Width); 
+y2 = mod(y1+1,Height+1)+(y1==Height);
+
+%Collects pixel values
+FirstPixel = zeros(1,PixelCouplesSample);
+SecondPixel = zeros(1,PixelCouplesSample);
+for i = 1:PixelCouplesSample
+    FirstPixel(i) = Image(x1(i),y1(i));
+    SecondPixel(i) = Image(x2(i),y2(i));
 end
 
-c = corr2(P1,P2);
+Correlation = corr2(FirstPixel,SecondPixel);
+
 end
