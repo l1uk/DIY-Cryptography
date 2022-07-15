@@ -1,0 +1,19 @@
+#!/bin/sh
+
+d="/home/dvolo/GOL/Conway&Crypto"
+
+gs -sDEVICE=pdfwrite -o $d/pdf/%02d.pdf codice.pdf
+
+cd $d/pdf
+
+for i in $(ls)
+do
+	echo $i
+	j=$(basename $i .pdf)
+	convert -density 300 -depth 8 -quality 85 $j.pdf $j.png
+	echo "Png'd"
+	convert -gravity South -chop 0x800 $j.png $j.png
+	echo "Chopped"
+	convert -trim $j.png $j.png
+	echo "Trimmed"
+done
