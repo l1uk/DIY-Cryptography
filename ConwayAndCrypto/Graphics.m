@@ -18,114 +18,162 @@ APC{3} = AdjacentPixelCorr;
 SPC{3} = SamePixelCorr;
 KS{3} = KeySensitivity;
 
-save('data/10000metrics.mat','APC','SPC','KS')
+load("data/KeySens100Sim50It.mat")
+KS{4} = KeySensitivity;
+load("data/KeySens100Sim100It.mat")
+KS{5} = KeySensitivity;
+load("data/KeySens100Sim150It.mat")
+KS{6} = KeySensitivity;
+
+save('data/SimMetrics.mat','APC','SPC','KS')
 
 %%
 
-load("data/10000metrics.mat")
+load("data/SimMetrics.mat")
 
 %%
 f = 1;
-
-figure(f)
+F(f) = figure('doublebuffer','off','visible','off');
+figure(F(f))
 f = f+1;
-title("Correlazione tra pixel adiacenti")
+
 subplot(3,3,1)
 histogram(APC{1}(:,1))
-legend({"Original, no iteration"},"fontsize",12,"interpreter",'latex')
+title({"Original, no iteration"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,2)
 histogram(APC{1}(:,2))
-legend({"Life, no iteration"},"fontsize",12,"interpreter",'latex')
+title({"Life, no iteration"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,3)
 histogram(APC{1}(:,3))
-legend({"Fredkin, no iteration"},"fontsize",12,"interpreter",'latex')
+title({"Fredkin, no iteration"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,4)
 histogram(APC{2}(:,1))
-legend({"Original, 5 iterations"},"fontsize",12,"interpreter",'latex')
+title({"Original, 5 iterations"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,5)
 histogram(APC{2}(:,2))
-legend({"Life, 5 iterations"},"fontsize",12,"interpreter",'latex')
+title({"Life, 5 iterations"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,6)
 histogram(APC{2}(:,3))
-legend({"Fredkin, 5 iterations"},"fontsize",12,"interpreter",'latex')
+title({"Fredkin, 5 iterations"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,7)
 histogram(APC{3}(:,1))
-legend({"Original, 20 iterations"},"fontsize",12,"interpreter",'latex')
+title({"Original, 20 iterations"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,8)
 histogram(APC{3}(:,2))
-legend({"Life, 20 iterations"},"fontsize",12,"interpreter",'latex')
+title({"Life, 20 iterations"},"fontsize", 24, "interpreter",'latex')
 
 subplot(3,3,9)
 histogram(APC{3}(:,3))
-legend({"Fredkin, 20 iterations"},"fontsize",12,"interpreter",'latex')
+title({"Fredkin, 20 iterations"},"fontsize", 24, "interpreter",'latex')
+
+suptitle("Correlazione fra pixel adiacenti")
 
 %%
 
-figure(f)
+F(f) = figure('doublebuffer','off','visible','off');
+figure(F(f))
 f = f+1;
 
 subplot(3,2,1)
 histogram(SPC{1}(:,1))
-legend({"Life, no iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Life, no iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,2)
 histogram(SPC{1}(:,2))
-legend({"Fredkin, no iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Fredkin, no iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,3)
 histogram(SPC{2}(:,1))
-legend({"Life, 5 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Life, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,4)
 histogram(SPC{2}(:,2))
-legend({"Fredkin, 5 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Fredkin, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,5)
 histogram(SPC{3}(:,1))
-legend({"Life, 20 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Life, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,6)
 histogram(SPC{3}(:,2))
-legend({"Fredkin, 20 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Fredkin, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+suptitle("Correlazione fra stesso pixel prima e dopo")
 
 %%
 
-figure(f)
+F(f) = figure('doublebuffer','off','visible','off');
+figure(F(f))
 f = f+1;
 
 subplot(3,2,1)
 histogram(KS{1}(:,1))
-legend({"Life, no iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Life, no iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,2)
 histogram(KS{1}(:,2))
-legend({"Fredkin, no iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Fredkin, no iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,3)
 histogram(KS{2}(:,1))
-legend({"Life, 5 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Life, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,4)
 histogram(KS{2}(:,2))
-legend({"Fredkin, 5 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Fredkin, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,5)
 histogram(KS{3}(:,1))
-legend({"Life, 20 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Life, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,6)
 histogram(KS{3}(:,2))
-legend({"Fredkin, 20 iterations"}, "fontsize", 12, "interpreter", "latex")
+title({"Fredkin, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+suptitle("Correlazione tra versioni criptate con chiavi differenti di eps")
 
 %%
 
-saveas(figure(1),strcat(grafici,'/AdjacentPixelCorr.png'))
-saveas(figure(2),strcat(grafici,'/SamePixelCorr.png'))
-saveas(figure(3),strcat(grafici,'/KeySensitivity.png'))
+F(f) = figure('doublebuffer','off','visible','off');
+figure(F(f))
+f = f+1;
+
+subplot(3,2,1)
+histogram(KS{4}(:,1))
+title({"Life, 50 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+subplot(3,2,2)
+histogram(KS{4}(:,2))
+title({"Fredkin, 50 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+subplot(3,2,3)
+histogram(KS{5}(:,1))
+title({"Life, 100 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+subplot(3,2,4)
+histogram(KS{5}(:,2))
+title({"Fredkin, 100 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+subplot(3,2,5)
+histogram(KS{6}(:,1))
+title({"Life, 150 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+subplot(3,2,6)
+histogram(KS{6}(:,2))
+title({"Fredkin, 150 iterations"}, "fontsize", 24, "interpreter", "latex")
+
+suptitle("Correlazione tra versioni criptate con chiavi differenti di eps")
+
+%%
+
+saveas(F(1),strcat(grafici,'/AdjacentPixelCorr.png'))
+saveas(F(2),strcat(grafici,'/SamePixelCorr.png'))
+saveas(F(3),strcat(grafici,'/KeySensitivityFew.png'))
+saveas(F(4),strcat(grafici,'/KeySensitivityMore.png'))

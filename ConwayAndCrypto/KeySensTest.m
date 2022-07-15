@@ -9,7 +9,7 @@ Width = size(Image,2);
 Simulations = 1e2;
 KeySensitivity = zeros(Simulations,2);
 
-for Iterations=[50,100,500]
+for Iterations=[50,100,150]
     filename = sprintf("KeySens%dSim%dIt.mat",Simulations,Iterations);
 for i=1:Simulations
     %% Encryption
@@ -35,5 +35,5 @@ KeySensitivity(i,:) = ...
     corr2(FredkinEncoded,PerturbedFredkinEncoded)];
 disp(100*i/Simulations)
 end
-save(filename)
+save(strcat('data/',filename))
 end
