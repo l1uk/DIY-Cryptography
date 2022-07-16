@@ -24,6 +24,8 @@ load("data/KeySens100Sim100It.mat")
 KS{5} = KeySensitivity;
 load("data/KeySens100Sim150It.mat")
 KS{6} = KeySensitivity;
+load("data/KeySens100Sim500It.mat")
+KS{7} = KeySensitivity;
 
 save('data/SimMetrics.mat','APC','SPC','KS')
 
@@ -162,12 +164,12 @@ histogram(KS{5}(:,2))
 title({"Fredkin, 100 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,5)
-histogram(KS{6}(:,1))
-title({"Life, 150 iterations"}, "fontsize", 24, "interpreter", "latex")
+histogram(KS{7}(:,1))
+title({"Life, 500 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 subplot(3,2,6)
-histogram(KS{6}(:,2))
-title({"Fredkin, 150 iterations"}, "fontsize", 24, "interpreter", "latex")
+histogram(KS{7}(:,2))
+title({"Fredkin, 500 iterations"}, "fontsize", 24, "interpreter", "latex")
 
 suptitle("Correlazione tra versioni criptate con chiavi differenti di eps")
 

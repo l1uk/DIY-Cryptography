@@ -9,7 +9,7 @@ Width = size(Image,2);
 Simulations = 1e2;
 KeySensitivity = zeros(Simulations,2);
 
-for Iterations=[50,100,150]
+for Iterations=1000
     filename = sprintf("KeySens%dSim%dIt.mat",Simulations,Iterations);
 for i=1:Simulations
     %% Encryption

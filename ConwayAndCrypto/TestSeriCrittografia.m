@@ -18,7 +18,7 @@ for i=1:Simulations
 Password = [3.9+0.1*rand(),rand()];
 Mu = Password(1); %Logistic Map parameter: 3.9 < Mu < 4.0
 X0 = Password(2); %Logistic Map initial value: 0 < X0 < 1
-Sequence = LogisticRandomSequence(Height*Width,Mu,X0); 
+Sequence = LogisticRandomSequence(Height*Width,Mu,X0);
 
 LifeEncoded = Encrypter(Image,Sequence,'Life',Iterations);
 FredkinEncoded = Encrypter(Image,Sequence,'Fredkin',Iterations);

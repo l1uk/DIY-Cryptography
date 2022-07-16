@@ -11,7 +11,7 @@ for t=1:size(History,3)
     %Removes cells alive at previous times
     CurrentBoard = History(:,:,t).*Correction;
     %Keep track of indices of newly alive cells
-    Order = cat(1,Order,find(CurrentBoard == 1)); 
+    Order = cat(1,Order,find(CurrentBoard == 1));
     %Sets zeros in indices corresponding to cells already counted
     Correction(CurrentBoard==1) = 0;
 end

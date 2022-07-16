@@ -1,6 +1,6 @@
 #!/bin/sh
 
-d="/home/dvolo/GOL/Conway&Crypto"
+d="/home/dvolo/GOL/Presentazione"
 
 gs -sDEVICE=pdfwrite -o $d/pdf/%02d.pdf codice.pdf
 
