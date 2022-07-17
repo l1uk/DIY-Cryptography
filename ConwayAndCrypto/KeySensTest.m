@@ -8,7 +8,7 @@ Height = size(Image,1);
 Width = size(Image,2);
 Simulations = 1e2;
 KeySensitivity = zeros(Simulations,2);
-
+tic 
 for Iterations=1000
     filename = sprintf("KeySens%dSim%dIt.mat",Simulations,Iterations);
 for i=1:Simulations
@@ -31,9 +31,10 @@ PerturbedLifeEncoded = Encrypter(Image,PerturbedSequence,'Life',Iterations);
 PerturbedFredkinEncoded = Encrypter(Image,PerturbedSequence,'Fredkin',Iterations);
 
 KeySensitivity(i,:) = ...
-    [corr2(LifeEncoded,PerturbedLifeEncoded),
+    [corr2(LifeEncoded,PerturbedLifeEncoded),...
     corr2(FredkinEncoded,PerturbedFredkinEncoded)];
 disp(100*i/Simulations)
 end
 save(strcat('data/',filename))
 end
+toc
