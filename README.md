@@ -2,24 +2,34 @@
 Esploriamo le applicazioni della caoticità degli automi cellulari alla crittografia.
 
 ## Presentazione
-Una [presentazione](https://1drv.ms/p/s!Ai4UpOWgiwLEqkcNpdKv7rPl_6n8?e=qhNEvU) con 
 
-- Breve storia degli automi cellulari (Von Neumann)
-- Automi cellulari elementari e classificazione di Wolfram
-- Breve storia e completezza di Turing di Rule 110
-- Breve storia e completezza di Turing di Life
-- Metriche sulla complessità: articolo dei brasiliani
-- Cenni al tentativo di PRNG con Fredkin, che però non passa nessun test DieHard e nemmeno la piattezza dell'istogramma: primi indizi che non è così facile ottenere "entropia"
-- Fredkin: breve storia e motivazioni
-- **Algoritmo di crittografia per le immagini** basato su Life (e/o Fredkin):
-  - Cuore: meccanismo di permutazione
-  - Cenni sul resto dell'algoritmo (diffusione dei valori di grigio) che noi non implementiamo perché 
-    1. Non legato ai CA
-    2. L'ultimo passo fornisce risultati desiderabili, ma rende l'algoritmo irreversibile (citazione dell'altro articolo degli stessi autori dove lo si dimostra)
-  - Test statistici che usiamo e test che menzioniamo ma scartiamo perché sensati solo usando l'algoritmo completo
-  - Risultati e interpretazione
-- Cenno a implementazione di ECA (computazionalmente veloce) in IoT, ma anche all'articolo che dimostra che nessun PRNG basato su ECA è immune ad attacchi di correlazione.
-- Conclusioni deludenti: mi sa che gli automi cellulari non sono necessariamente il massimo
+### Automi cellulari
+
+- *Q: Che cos'è un automa cellulare?*\
+A: Storia, a partire da von Neumann
+- *Q: Quali sono i più semplici automi?*\
+A: Automi elementari (ECA)
+- *Q: In che senso un automa è caotico?*\
+A: Utile la classificazione di Wolfram
+- *Q: Esistono automi elementari Turing-completi?*\
+A: In Rule 110 astronavi emulano un "cyclic tag system"
+- *Q: Il più celebre automa, Life, è Turing-completo?*\
+A: Sì, glider emulano segnali e porte logiche
+- *Q: Qual'è l'automa più caotico?*\
+A: Fredkin, grazie a metriche di caoticità
+
+### Crittografia
+
+- *Q: Come si cripta un'immagine?*\
+A: Struttura dell'algoritmo, permutazione e diffusione
+- *Q: Che ruolo gioca Life in questo?*\
+A: Generazione della permutazione
+- *Q: Come si misura la bontà dell'algoritmo?*\
+A: Test di correlazione e di sensibilità alla chiave
+- *Q: Quali sono i risultati?*\
+A: Basso contributo entropico di Life, algoritmo lento
+- *Q: Come si spiegano i risultati positivi dell'articolo?*\
+A: Forte contributo entropico di altri step dell'algoritmo
 
 ## Algoritmo
 
@@ -29,11 +39,22 @@ La password genera una configurazione iniziale di un automa cellulare, che viene
 
 Successivamente si effettuano dei test statistici di correlazione tra immagini iniziali e finali, e di sensibilità dell'immagine criptata rispetto a un piccolo cambiamento nella password.
 
-# Analisi e interpretazione
-- Test di correlazione:
-  1. Correlazione di pixel adiacenti: da una media tra 90% e 100% nell'immagine originale si raggiunge anche senza alcuna iterazione del CA una gaussiana abbastanza stretta centrata in 0.
-  2. Correlazione fra stessi pixel prima e dopo: gaussiane strette intorno a 0.
-  3. Tuttavia, all'aumentare delle iterazioni del CA (History cresce) queste gaussiane non si stringono come verrebbe da ipotizzare. Rimangono inoltre uguali anche tra CA diversi. Spiegazione: se si perde correlazione è merito della mappa logistica, non dei CA.
-- Sensibilità alla chiave: finalmente risultati non banali. (inserire spiegazione)
+### Risultati test algoritmo originario
+- Algoritmo originale
+  - Test di correlazione:
+    1. Correlazione di pixel adiacenti: da una media tra 90% e 100% nell'immagine originale si raggiunge anche senza alcuna iterazione del CA una gaussiana abbastanza stretta centrata in 0.
+    2. Correlazione fra stessi pixel prima e dopo: gaussiane strette intorno a 0.
+    3. Tuttavia, all'aumentare delle iterazioni del CA (History cresce) queste gaussiane non si stringono come verrebbe da ipotizzare. Rimangono inoltre uguali anche tra CA diversi. Spiegazione: se si perde correlazione è merito della mappa logistica, non dei CA.
+  - Sensibilità alla chiave: finalmente risultati non banali. (inserire spiegazione)
 
+### Nuovo algoritmo
+- L'algoritmo tiene traccia del primo istante in cui una cella è viva nel CA
+- Tuttavia dopo ~10 iterazioni il 95% delle celle si sarà già acceso una volta
+- Pertanto allungare il numero di iterazioni non migliora l'algoritmo
+- Soluzione: nuovo algoritmo con reset periodico
+  1. Genera stato iniziale
+  2. Evolvi lo stato per numero fissato di iterazioni
+  3. Permuta l'immagine usando la storia
+  4. Ripeti per numero fissato di reset i punti 2 e 3 resettando la storia
+- Predizione: 10 iterazioni per 10 reset darà correlazione minore di 100 iterazioni senza reset
 
