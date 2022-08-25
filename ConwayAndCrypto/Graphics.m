@@ -2,7 +2,13 @@ clc
 close all
 clear
 
+set(0,'defaultAxesFontSize',18)
+set(0,'defaultTextInterpreter','latex')
+set(0,'defaultLegendInterpreter','latex')
+set(groot, 'defaultLineMarkerSize', 2)
+
 grafici = strcat(fileparts(cd),'/Presentazione/grafici');
+
 %%
 
 load("data/10000Simulations1Iterations.mat")
@@ -18,14 +24,21 @@ APC{3} = AdjacentPixelCorr;
 SPC{3} = SamePixelCorr;
 KS{3} = KeySensitivity;
 
-load("data/KeySens100Sim50It.mat")
+load("data/KeySens1000Sim1It.mat")
 KS{4} = KeySensitivity;
-load("data/KeySens100Sim100It.mat")
+load("data/KeySens1000Sim10It.mat")
 KS{5} = KeySensitivity;
-load("data/KeySens100Sim150It.mat")
+load("data/KeySens1000Sim100It.mat")
 KS{6} = KeySensitivity;
-load("data/KeySens100Sim500It.mat")
+load("data/KeySens1000Sim1000It.mat")
 KS{7} = KeySensitivity;
+
+load("data/OldKeySens1000Sim1It.mat")
+OKS{1} = KeySensitivity;
+load("data/OldKeySens1000Sim10It.mat")
+OKS{2} = KeySensitivity;
+load("data/OldKeySens1000Sim100It.mat")
+OKS{3} = KeySensitivity;
 
 save('data/SimMetrics.mat','APC','SPC','KS')
 
@@ -39,75 +52,58 @@ F(f) = figure('doublebuffer','off','visible','off');
 figure(F(f))
 f = f+1;
 
-subplot(3,3,1)
+t = tiledlayout(3,3);
+
+nexttile([3,1])
 histogram(APC{1}(:,1))
-title({"Original, no iteration"},"fontsize", 24, "interpreter",'latex')
+title("Original, no iteration")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(APC{1}(:,1)), std(APC{1}(:,1)));
+legend(leg)
 
-subplot(3,3,2)
-histogram(APC{1}(:,2))
-title({"Life, no iteration"},"fontsize", 24, "interpreter",'latex')
+nexttile([1,2])
+histogram(APC{1}(:,2),'FaceColor','y')
+title("Only Logistic")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(APC{1}(:,2)), std(APC{1}(:,2)));
+legend(leg)
 
-subplot(3,3,3)
-histogram(APC{1}(:,3))
-title({"Fredkin, no iteration"},"fontsize", 24, "interpreter",'latex')
+% nexttile
+% histogram(APC{2}(:,1))
+% title("Original, 5 iterations")
+% leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(APC{2}(:,1)), std(APC{2}(:,1)));
+% legend(leg)
 
-subplot(3,3,4)
-histogram(APC{2}(:,1))
-title({"Original, 5 iterations"},"fontsize", 24, "interpreter",'latex')
+nexttile
+histogram(APC{2}(:,2),'FaceColor','g')
+title("Life, 5 iterations")
+leg = sprintf("$\\mu = %.5f, \\sigma = %.3f$",mean(APC{2}(:,2)), std(APC{2}(:,2)));
+legend(leg)
 
-subplot(3,3,5)
-histogram(APC{2}(:,2))
-title({"Life, 5 iterations"},"fontsize", 24, "interpreter",'latex')
+nexttile
+histogram(APC{2}(:,3),'FaceColor','r')
+title("Fredkin, 5 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(APC{2}(:,3)), std(APC{2}(:,3)));
+legend(leg)
 
-subplot(3,3,6)
-histogram(APC{2}(:,3))
-title({"Fredkin, 5 iterations"},"fontsize", 24, "interpreter",'latex')
+% nexttile
+% histogram(APC{3}(:,1))
+% title("Original, 20 iterations")
+% leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(APC{3}(:,1)), std(APC{3}(:,1)));
+% legend(leg)
 
-subplot(3,3,7)
-histogram(APC{3}(:,1))
-title({"Original, 20 iterations"},"fontsize", 24, "interpreter",'latex')
+nexttile
+histogram(APC{3}(:,2),'FaceColor','g')
+title("Life, 20 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(APC{3}(:,2)), std(APC{3}(:,2)));
+legend(leg)
 
-subplot(3,3,8)
-histogram(APC{3}(:,2))
-title({"Life, 20 iterations"},"fontsize", 24, "interpreter",'latex')
+nexttile
+histogram(APC{3}(:,3),'FaceColor','r')
+title("Fredkin, 20 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(APC{3}(:,3)), std(APC{3}(:,3)));
+legend(leg)
 
-subplot(3,3,9)
-histogram(APC{3}(:,3))
-title({"Fredkin, 20 iterations"},"fontsize", 24, "interpreter",'latex')
+title(t,"Correlazione fra pixel adiacenti","fontsize",24,"Interpreter","latex")
 
-suptitle("Correlazione fra pixel adiacenti")
-
-%%
-
-F(f) = figure('doublebuffer','off','visible','off');
-figure(F(f))
-f = f+1;
-
-subplot(3,2,1)
-histogram(SPC{1}(:,1))
-title({"Life, no iterations"}, "fontsize", 24, "interpreter", "latex")
-
-subplot(3,2,2)
-histogram(SPC{1}(:,2))
-title({"Fredkin, no iterations"}, "fontsize", 24, "interpreter", "latex")
-
-subplot(3,2,3)
-histogram(SPC{2}(:,1))
-title({"Life, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
-
-subplot(3,2,4)
-histogram(SPC{2}(:,2))
-title({"Fredkin, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
-
-subplot(3,2,5)
-histogram(SPC{3}(:,1))
-title({"Life, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
-
-subplot(3,2,6)
-histogram(SPC{3}(:,2))
-title({"Fredkin, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
-
-suptitle("Correlazione fra stesso pixel prima e dopo")
 
 %%
 
@@ -115,31 +111,38 @@ F(f) = figure('doublebuffer','off','visible','off');
 figure(F(f))
 f = f+1;
 
-subplot(3,2,1)
-histogram(KS{1}(:,1))
-title({"Life, no iterations"}, "fontsize", 24, "interpreter", "latex")
+t = tiledlayout(3,2);
+nexttile([1,2])
+histogram(SPC{1}(:,1),'FaceColor','y')
+title("Only Logistics")
+leg = sprintf("$\\mu = %.5f, \\sigma = %.3f$",mean(SPC{1}(:,1)), std(SPC{1}(:,1)));
+legend(leg)
 
-subplot(3,2,2)
-histogram(KS{1}(:,2))
-title({"Fredkin, no iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(SPC{2}(:,1),'FaceColor','g')
+title("Life, 5 iterations")
+leg = sprintf("$\\mu = %.5f, \\sigma = %.3f$",mean(SPC{2}(:,1)), std(SPC{2}(:,1)));
+legend(leg)
 
-subplot(3,2,3)
-histogram(KS{2}(:,1))
-title({"Life, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(SPC{2}(:,2),'FaceColor','r')
+title("Fredkin, 5 iterations")
+leg = sprintf("$\\mu = %.5f, \\sigma = %.3f$",mean(SPC{2}(:,2)), std(SPC{2}(:,2)));
+legend(leg)
 
-subplot(3,2,4)
-histogram(KS{2}(:,2))
-title({"Fredkin, 5 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(SPC{3}(:,1),'FaceColor','g')
+title("Life, 20 iterations")
+leg = sprintf("$\\mu = %.5f, \\sigma = %.3f$",mean(SPC{3}(:,1)), std(SPC{3}(:,1)));
+legend(leg)
 
-subplot(3,2,5)
-histogram(KS{3}(:,1))
-title({"Life, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(SPC{3}(:,2),'FaceColor','r')
+title("Fredkin, 20 iterations")
+leg = sprintf("$\\mu = %.5f, \\sigma = %.3f$",mean(SPC{3}(:,2)), std(SPC{3}(:,2)));
+legend(leg)
 
-subplot(3,2,6)
-histogram(KS{3}(:,2))
-title({"Fredkin, 20 iterations"}, "fontsize", 24, "interpreter", "latex")
-
-suptitle("Correlazione tra versioni criptate con chiavi differenti di eps")
+title(t,'Correlazione fra stesso pixel prima e dopo',"fontsize",24,"Interpreter","latex")
 
 %%
 
@@ -147,35 +150,192 @@ F(f) = figure('doublebuffer','off','visible','off');
 figure(F(f))
 f = f+1;
 
-subplot(3,2,1)
-histogram(KS{4}(:,1))
-title({"Life, 50 iterations"}, "fontsize", 24, "interpreter", "latex")
+t = tiledlayout(2,3);
 
-subplot(3,2,2)
-histogram(KS{4}(:,2))
-title({"Fredkin, 50 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile([2,1])
+histogram(KS{1}(:,1),'FaceColor','y')
+title("Only Logistics")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{1}(:,1)), std(KS{1}(:,1)));
+legend(leg)
 
-subplot(3,2,3)
-histogram(KS{5}(:,1))
-title({"Life, 100 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(KS{2}(:,1),'FaceColor','g')
+title("Life, 5 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{2}(:,1)), std(KS{2}(:,1)));
+legend(leg)
 
-subplot(3,2,4)
-histogram(KS{5}(:,2))
-title({"Fredkin, 100 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(KS{2}(:,2),'FaceColor','r')
+title("Fredkin, 5 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{2}(:,2)), std(KS{2}(:,2)));
+legend(leg)
 
-subplot(3,2,5)
-histogram(KS{7}(:,1))
-title({"Life, 500 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(KS{3}(:,1),'FaceColor','g')
+title("Life, 20 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{3}(:,1)), std(KS{3}(:,1)));
+legend(leg)
 
-subplot(3,2,6)
-histogram(KS{7}(:,2))
-title({"Fredkin, 500 iterations"}, "fontsize", 24, "interpreter", "latex")
+nexttile
+histogram(KS{3}(:,2),'FaceColor','r')
+title("Fredkin, 20 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{3}(:,2)), std(KS{3}(:,2)));
+legend(leg)
 
-suptitle("Correlazione tra versioni criptate con chiavi differenti di eps")
+title(t,'Correlazione tra versioni criptate con board differenti di un pixel',"fontsize",24,"Interpreter","latex")
 
 %%
 
-saveas(F(1),strcat(grafici,'/AdjacentPixelCorr.png'))
-saveas(F(2),strcat(grafici,'/SamePixelCorr.png'))
-saveas(F(3),strcat(grafici,'/KeySensitivityFew.png'))
-saveas(F(4),strcat(grafici,'/KeySensitivityMore.png'))
+F(f) = figure('doublebuffer','off','visible','off');
+figure(F(f))
+f = f+1;
+
+t = tiledlayout(3,3);
+
+nexttile([3,1])
+histogram(KS{4}(:,1),'FaceColor','y')
+title("Only Logistics")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{4}(:,1)), std(KS{4}(:,1)));
+legend(leg)
+
+nexttile
+histogram(KS{5}(:,1),'FaceColor','g')
+title("Life, 10 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{5}(:,1)), std(KS{5}(:,1)));
+legend(leg)
+
+nexttile
+histogram(KS{5}(:,2),'FaceColor','r')
+title("Fredkin, 10 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{5}(:,2)), std(KS{5}(:,2)));
+legend(leg)
+
+nexttile
+histogram(KS{6}(:,1),'FaceColor','g')
+title("Life, 100 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{6}(:,1)), std(KS{6}(:,1)));
+legend(leg)
+
+nexttile
+histogram(KS{6}(:,2),'FaceColor','r')
+title("Fredkin, 100 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{6}(:,2)), std(KS{6}(:,2)));
+legend(leg)
+
+nexttile
+histogram(KS{7}(:,1),'FaceColor','g')
+title("Life, 1000 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{7}(:,1)), std(KS{7}(:,1)));
+legend(leg)
+
+nexttile
+histogram(KS{7}(:,2),'FaceColor','r')
+title("Fredkin, 1000 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(KS{7}(:,2)), std(KS{7}(:,2)));
+legend(leg)
+
+title(t,'Correlazione tra versioni criptate con board differenti di un pixel',"fontsize",24,"Interpreter","latex")
+
+%%
+
+F(f) = figure('doublebuffer','off','visible','off');
+figure(F(f))
+f = f+1;
+
+t = tiledlayout(2,3);
+
+nexttile([2,1])
+histogram(OKS{1}(:,1),'FaceColor','y')
+title("Only Logistics")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(OKS{1}(:,1)), std(OKS{1}(:,1)));
+legend(leg)
+
+nexttile
+histogram(OKS{2}(:,1),'FaceColor','g')
+title("Life, 10 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(OKS{2}(:,1)), std(OKS{2}(:,1)));
+legend(leg)
+
+nexttile
+histogram(OKS{2}(:,2),'FaceColor','r')
+title("Fredkin, 10 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(OKS{2}(:,2)), std(OKS{2}(:,2)));
+legend(leg)
+
+nexttile
+histogram(OKS{3}(:,1),'FaceColor','g')
+title("Life, 100 iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(OKS{3}(:,1)), std(OKS{3}(:,1)));
+legend(leg)
+
+nexttile
+histogram(OKS{3}(:,2),'FaceColor','r')
+title("Fredkin, iterations")
+leg = sprintf("$\\mu = %.3f, \\sigma = %.3f$",mean(OKS{3}(:,2)), std(OKS{3}(:,2)));
+legend(leg)
+
+title(t,'Correlazione tra versioni criptate con chiavi differenti di 1 bit',"fontsize",24,"Interpreter","latex")
+
+%%
+
+F(f) = figure('doublebuffer','off','visible','off');
+figure(F(f))
+f = f+1;
+
+t = tiledlayout(2,3);
+
+nexttile([2,1])
+onlyGood = OKS{1}(:,1);
+badPercent = numel(find(onlyGood==1))/numel(onlyGood);
+onlyGood = onlyGood(abs(onlyGood)<0.01);
+histogram(onlyGood,'FaceColor','y')
+title("Only Logistics")
+leg = sprintf("$\\mu = %f, \\sigma = %f$",mean(onlyGood), std(onlyGood));
+legend(leg)
+
+nexttile
+onlyGood = OKS{2}(:,1);
+badPercent = numel(find(onlyGood==1))/numel(onlyGood);
+onlyGood = onlyGood(abs(onlyGood)<0.01);
+histogram(onlyGood,'FaceColor','g')
+title("Life, 10 iterations")
+leg = sprintf("$\\mu = %f, \\sigma = %f$",mean(onlyGood), std(onlyGood));
+legend(leg)
+
+nexttile
+onlyGood = OKS{2}(:,2);
+badPercent = numel(find(onlyGood==1))/numel(onlyGood);
+onlyGood = onlyGood(abs(onlyGood)<0.01);
+histogram(onlyGood,'FaceColor','r')
+title("Fredkin, 10 iterations")
+leg = sprintf("$\\mu = %f, \\sigma = %f$",mean(onlyGood), std(onlyGood));
+legend(leg)
+
+nexttile
+onlyGood = OKS{3}(:,1);
+badPercent = numel(find(onlyGood==1))/numel(onlyGood);
+onlyGood = onlyGood(abs(onlyGood)<0.01);
+histogram(onlyGood,'FaceColor','g')
+title("Life, 100 iterations")
+leg = sprintf("$\\mu = %f, \\sigma = %f$",mean(onlyGood), std(onlyGood));
+legend(leg)
+
+nexttile
+onlyGood = OKS{3}(:,2);
+badPercent = numel(find(onlyGood==1))/numel(onlyGood);
+onlyGood = onlyGood(abs(onlyGood)<0.01);
+histogram(onlyGood,'FaceColor','r')
+title("Fredkin, 100 iterations")
+leg = sprintf("$\\mu = %f, \\sigma = %f$",mean(onlyGood), std(onlyGood));
+legend(leg)
+
+title(t,'Correlazione tra versioni criptate con chiavi differenti di 1 bit, correzione',"fontsize",24,"Interpreter","latex")
+
+%%
+
+saveas(F(1),strcat(grafici,'/AdjacentPixelCorr.svg'))
+saveas(F(2),strcat(grafici,'/SamePixelCorr.svg'))
+saveas(F(3),strcat(grafici,'/OldKeySensitivity1.svg'))
+saveas(F(4),strcat(grafici,'/OldKeySensitivity2.svg'))
+saveas(F(5),strcat(grafici,'/NewKeySensitivity1.svg'))
+saveas(F(6),strcat(grafici,'/NewKeySensitivity2.svg'))

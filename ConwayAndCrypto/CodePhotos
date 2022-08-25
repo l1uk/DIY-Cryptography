@@ -1,6 +1,6 @@
 #!/bin/sh
 
-d="/home/dvolo/GOL/Conway&Crypto"
+d="/home/dvolo/.local/src/GOL/Presentazione"
 
 cd $d
 

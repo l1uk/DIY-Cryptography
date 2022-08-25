@@ -6,10 +6,10 @@ RGBImage = imread('dogs.jpeg');
 Image = rgb2gray(RGBImage);
 Height = size(Image,1);
 Width = size(Image,2);
-Simulations = 1e2;
+Simulations = 1e3;
 KeySensitivity = zeros(Simulations,2);
 tic 
-for Iterations=1000
+for Iterations=[1000]
     filename = sprintf("KeySens%dSim%dIt.mat",Simulations,Iterations);
 for i=1:Simulations
     %% Encryption
