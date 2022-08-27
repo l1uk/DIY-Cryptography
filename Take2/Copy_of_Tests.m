@@ -1,7 +1,3 @@
-clc
-close all
-clear
-
 RGBImage = imread('scrivania.jpg');
 Image = rgb2gray(RGBImage);
 Height = size(Image,1);
@@ -12,10 +8,13 @@ SamePixelCorr = zeros(Simulations,2);
 OldKeySensitivity = zeros(Simulations,2);
 NewKeySensitivity = zeros(Simulations,2);
 
+
+
+
 for Iterations=[1,10]
     for Resets = [100,10]/Iterations
         filename = sprintf("%dIts%dResets.mat",Iterations,Resets);
-        for i=1:Simulations
+        for i=n:Simulations
             %% Encryption
             Password = [3.9+0.1*rand(),rand()];
             Mu = Password(1); %Logistic Map parameter: 3.9 < Mu < 4.0
