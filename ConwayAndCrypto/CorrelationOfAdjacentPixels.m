@@ -12,7 +12,7 @@ x1 = randi(Width,1,PixelCouplesSample);
 y1 = randi(Height,1,PixelCouplesSample);
 %Generates second point coordinates keeping track of periodic boundary
 %conditions
-x2 = mod(x1+1,Width+1)+(x1==Width); 
+x2 = mod(x1+1,Width+1)+(x1==Width);
 y2 = mod(y1+1,Height+1)+(y1==Height);
 
 %Collects pixel values
