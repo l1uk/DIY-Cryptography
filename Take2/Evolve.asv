@@ -14,12 +14,12 @@ MooreNeighborhood = [1 1 1; 1 0 1; 1 1 1];
 %Gives number of alive neighbors of each cell
 Neighbors = conv2(PeriodicBoard, MooreNeighborhood, 'same');
 %Modifies a cell state according to how many alive neighbors it has
-if strcmp(Rule,"Life")
-    NewBoard = PeriodicBoard & (Neighbors > 1 & Neighbors < 4) ...
-        | ~PeriodicBoard & (Neighbors == 3);
-elseif strcmp(Rule,"Fredkin")
-        NewBoard = PeriodicBoard & ~mod(Neighbors,2) ...
-        | ~PeriodicBoard & mod(Neighbors,2);
+if strcmp("Rule","Life")
+    NewBoard = OldBoard & (Neighbors > 1 & Neighbors < 4) ...
+        | ~OldBoard & (Neighbors == 3);
+elseif strcmp("Rule","Fredkin")
+        NewBoard = OldBoard & ~mod(Neighbors,2) ...
+        | ~OldBoard & mod(Neighbors,2);
 end
 
 %Removes the boundary copies
