@@ -12,7 +12,7 @@ SamePixelCorr = zeros(Simulations,2);
 OldKeySensitivity = zeros(Simulations,2);
 NewKeySensitivity = zeros(Simulations,2);
 pars = [... % Iterations, Resets
-    10, 5
+    %10, 5
     5, 10
     1, 50
     50, 1
@@ -70,9 +70,11 @@ for j=1:size(pars,1)
             [corr2(LifeEncoded,PerturbedLifeEncoded),
             corr2(FredkinEncoded,PerturbedFredkinEncoded)];
 
-        disp(100*i/Simulations)
+        fprintf("%d iterations, %d resets, %.3f%%\n", Iterations, Resets, ...
+            i/Simulations*100)
     end
-    save(strcat('data/',filename),...
-        AdjacentPixelCorr, SamePixelCorr,...
-        OldKeySensitivity,NewKeySensitivity)
+    %%
+    save("data/" + filename,...
+        "AdjacentPixelCorr", "SamePixelCorr",...
+        "OldKeySensitivity","NewKeySensitivity")
 end
