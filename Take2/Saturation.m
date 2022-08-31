@@ -33,8 +33,13 @@ for n = 1:Simulations
 	end
 end
 %%
-LifeSaturation = LifeSaturation/(Height*Width);
-FredSaturation = FredSaturation/(Height*Width);
+% LifeSaturation = LifeSaturation/(Height*Width);
+% FredSaturation = FredSaturation/(Height*Width);
+
+set(0,'defaultAxesFontSize',18)
+set(0,'defaultTextInterpreter','latex')
+set(0,'defaultLegendInterpreter','latex')
+set(groot, 'defaultLineMarkerSize', 2)
 figure(1)
 t = tiledlayout(2,2);
 nexttile
@@ -51,11 +56,11 @@ nexttile
 errorbar(log(1-mean(LifeSaturation)), std(LifeSaturation))
 xlabel("t")
 ylabel("log(1-y)")
-title("Life")
+title("Life (log)")
 nexttile
 errorbar(log(1-mean(FredSaturation)), std(FredSaturation))
 xlabel("t")
 ylabel("log(1-y)")
-title("Fredkin")
+title("Fredkin (log)" )
 
-title(t,"Percentuale di celle attivate almeno una volta al tempo t")
+title(t,"Percentuale di celle attivate almeno una volta al tempo t","fontsize",24,"Interpreter","latex")
