@@ -44,8 +44,9 @@ for j=1:size(pars,1)
             corr2(Image,FredkinEncoded)];
 
         %% Old Key sensitivity test
-        e = 1e-9;
-        PerturbedSequence = LogisticRandomSequence(Height*Width,Mu+e,X0+e);
+        e = 1e-2;
+        PerturbedSequence = LogisticRandomSequence(Height*Width,...
+            mod(Mu+e,1),mod(X0+e,1));
 
         PerturbedLifeEncoded = Encrypter(Image,PerturbedSequence,'Life',...
             Iterations,Resets);
@@ -75,7 +76,7 @@ for j=1:size(pars,1)
             i/Simulations*100)
     end
     %%
-    save("data-dogs/" + filename,...
+    save("data-dogs2/" + filename,...
         "AdjacentPixelCorr", "SamePixelCorr",...
         "OldKeySensitivity","NewKeySensitivity")
 end

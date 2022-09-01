@@ -248,7 +248,7 @@ for im = ["data-dogs","data-scrivania"]
 	leg = sprintf("$\\mu = %.4f, \\sigma = %.4f$",mean(i10r10.OldKeySensitivity(:,1)), std(i10r10.OldKeySensitivity(:,1)));
 	legend(leg)
 
-	title(t,"Sensibilità alla chiave perturbando il seed: Life","fontsize",24,"Interpreter","latex")
+	title(t,"Sensibilit\`a alla chiave perturbando il seed: Life","fontsize",24,"Interpreter","latex")
 
 	%% Old Key Sensitivity: Fredkin
 
@@ -294,7 +294,7 @@ for im = ["data-dogs","data-scrivania"]
 	leg = sprintf("$\\mu = %.4f, \\sigma = %.4f$",mean(i10r10.OldKeySensitivity(:,2)), std(i10r10.OldKeySensitivity(:,2)));
 	legend(leg)
 
-	title(t,"Sensibilità alla chiave perturbando il seed: Fredkin","fontsize",24,"Interpreter","latex")
+	title(t,"Sensibilit\`a alla chiave perturbando il seed: Fredkin","fontsize",24,"Interpreter","latex")
 
 	%% New Key Sensitivity: Life
 
@@ -340,7 +340,7 @@ for im = ["data-dogs","data-scrivania"]
 	leg = sprintf("$\\mu = %.4f, \\sigma = %.4f$",mean(i10r10.NewKeySensitivity(:,1)), std(i10r10.NewKeySensitivity(:,1)));
 	legend(leg)
 
-	title(t,"Sensibilità alla chiave perturbando la board: Life","fontsize",24,"Interpreter","latex")
+	title(t,"Sensibilit\`a alla chiave perturbando la board: Life","fontsize",24,"Interpreter","latex")
 
 	%% New Key Sensitivity: Fredkin
 
@@ -386,7 +386,7 @@ for im = ["data-dogs","data-scrivania"]
 	leg = sprintf("$\\mu = %.4f, \\sigma = %.4f$",mean(i10r10.NewKeySensitivity(:,2)), std(i10r10.NewKeySensitivity(:,2)));
 	legend(leg)
 
-	title(t,"Sensibilità alla chiave perturbando la board: Fredkin","fontsize",24,"Interpreter","latex")
+	title(t,"Sensibilit\`a alla chiave perturbando la board: Fredkin","fontsize",24,"Interpreter","latex")
 
 	%% Salvataggio
 
