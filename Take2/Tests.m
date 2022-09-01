@@ -2,7 +2,7 @@ clc
 close all
 clear
 
-RGBImage = imread('scrivania.jpg');
+RGBImage = imread('dogs.jpeg');
 Image = rgb2gray(RGBImage);
 Height = size(Image,1);
 Width = size(Image,2);
@@ -12,11 +12,12 @@ SamePixelCorr = zeros(Simulations,2);
 OldKeySensitivity = zeros(Simulations,2);
 NewKeySensitivity = zeros(Simulations,2);
 pars = [... % Iterations, Resets
-    %10, 5
-    %5, 10
-    1, 50
-    50, 1
-    10, 10];
+    1,1];
+%    10, 5];
+%     5, 10
+%     1, 50
+%     50, 1
+%     10, 10];
 for j=1:size(pars,1)
     Iterations = pars(j,1);
     Resets = pars(j,2);
@@ -74,7 +75,7 @@ for j=1:size(pars,1)
             i/Simulations*100)
     end
     %%
-    save("data-scrivania/" + filename,...
+    save("data-dogs/" + filename,...
         "AdjacentPixelCorr", "SamePixelCorr",...
         "OldKeySensitivity","NewKeySensitivity")
 end
