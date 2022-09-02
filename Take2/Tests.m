@@ -6,18 +6,18 @@ RGBImage = imread('dogs.jpeg');
 Image = rgb2gray(RGBImage);
 Height = size(Image,1);
 Width = size(Image,2);
-Simulations = 1e3;
+Simulations = 1e2;
 AdjacentPixelCorr = zeros(Simulations,3);
 SamePixelCorr = zeros(Simulations,2);
 OldKeySensitivity = zeros(Simulations,2);
 NewKeySensitivity = zeros(Simulations,2);
 pars = [... % Iterations, Resets
-    1,1];
-%    10, 5];
-%     5, 10
-%     1, 50
-%     50, 1
-%     10, 10];
+    %1,1
+    10, 5
+     5, 10
+     1, 50
+     50, 1
+     10, 10];
 for j=1:size(pars,1)
     Iterations = pars(j,1);
     Resets = pars(j,2);
@@ -44,7 +44,7 @@ for j=1:size(pars,1)
             corr2(Image,FredkinEncoded)];
 
         %% Old Key sensitivity test
-        e = 1e-2;
+        e = 1e-9;
         PerturbedSequence = LogisticRandomSequence(Height*Width,...
             mod(Mu+e,1),mod(X0+e,1));
 
